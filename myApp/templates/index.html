@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class='row'>
+        <div class='col-lg-3 mx-auto' style='margin:15px;'>
+            <a href="/" class="list-group-item list-group-item-action">All</a>
+            {% for category in categories%}
+            <div class="list-group">
+                <a href="/?categoryid={{category.id}}" class="list-group-item list-group-item-action">{{category.name}}</a>
+             </div>
+            {% endfor %}
+        </div>
+        <div id='products' class='col-lg-9 mx-auto'>
+            <div class="row row-cols-3 mx-auto">
+                {% for items in products %}
+                    <div class="card col-sm-6 col-2" style="margin:15px;width: 18rem;">
+                        <img style="width:250px;height:250px;" class="card-img-top" src="{{items.image.url}}" alt="Card image cap">
+                    
+                        <div class="card-body">
+                        <h5 class="card-title">{{items.name}}</h5>
+                        <p class="card-text">{{items.price}}</p>
+                        <a href="#" class="btn btn-primary border btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
