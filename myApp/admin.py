@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models.product import Product
 from .models.category import Category
+from .models.customer import  Customer
 
 #Set list_display to control which fields are displayed on the change list page of the admin.
 class AdminProduct(admin.ModelAdmin):
@@ -13,3 +14,4 @@ class AdminCategory(admin.ModelAdmin):
 
 admin.site.register(Product,AdminProduct)
 admin.site.register(Category,AdminCategory)
+admin.site.register(Customer)

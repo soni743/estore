@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container'>
+    <div class='p-4 m-4'>
+        <div class='col-lg-5 mx-auto border rounded pt-4'>
+            <h3 class='alert alert-light border rounded'>Create an Account</h3>
+            <form action='/signup/' method='post'>
+                {% csrf_token %}
+                {% if error %}
+                    <div class='alert alert-danger'>
+                        {{error}}
+                    </div>
+                {% endif %}
+                <div class='form-group'>
+                    <label for="exampleInputEmail1">First Name</label>
+                    {% if formData.first_name %}
+                         <input type="text" value='{{formData.first_name}}' class="form-control" id="firstname" name="firstname" placeholder="">
+                    {% else %}   
+                         <input type="text" value='{{formData.first_name}}' class="form-control" id="firstname" name="firstname" placeholder="">
+                    {% endif %}     
+                </div>
+
+                <div class='form-group'>
+                    <label for="exampleInputEmail1">Last Name</label>
+                    <input type="text" value='{{formData.last_name}}' class="form-control" id="lastname" name="lastname" placeholder="">
+                </div>
+
+                <div class='form-group'>
+                    <label for="exampleInputEmail1">Phone No.</label>
+                    <input type="text" value='{{formData.phone}}' class="form-control" id="phone" name="phone" placeholder="">
+                </div>
+                <div class='form-group'>
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" value='{{formData.email}}' class="form-control" id="email" name="email" placeholder="example@email.com">
+                </div>
+                <div class='form-group'>
+                    <label for="exampleInputEmail1">Password</label>
+                    <input type="password"  class="form-control" id="password" name="password" placeholder="password"
+                        placeholder="******">
+                </div>
+                <div class='form-group'>
+                    <input type="submit" class="btn btn-primary" value="Create an account" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
