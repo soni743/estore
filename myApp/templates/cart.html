@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load cart %}
+{% load customfilter %}
+<div class="container">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <h1>Shopping Cart</h1>
+    <hr/>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">Category</th>
+            <th scope="col">Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Qty*Price</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for product in products%}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td><img src='{{product.image.url}}' style="width:100px !important; height:100px !important;" /></td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product|cart_quantity:request.session.cart}}</td>
+                    <td>{{product.price | currency}}</td>
+                    <td>{{product |price_total:request.session.cart|currency}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">Total</td>
+                <td>{{products | cart_total_price:request.session.cart|currency}}</td>
+            </tr>
+        </tfoot>
+    </table>
+    <hr/>
+    <div class="m-3 p-3" style="text-align:right">
+        <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-secondary rounded">Check out</a>
+       
+    </div>
+</div>        
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Checkout form</h5>
+          <button type="button"  style="float:right;" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="post" action="/checkout/">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="">Address</label>
+                <input type="text" name="address" id="address" class="form-control" placeholder="Address">
+            
+              </div>
+              <div class="form-group">
+                <label for="">Phone No.</label>
+                <input type="text" name="phone" id="phone" class="form-control" placeholder="Address">
+            
+              </div>
+
+              <div class="form-group">
+                  <input type="submit" value="Check out" class="bt btn-primary rounded">
+              </div>
+          </form>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+{% endblock %}
